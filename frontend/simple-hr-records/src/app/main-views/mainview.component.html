@@ -1,0 +1,69 @@
+<div class="container">
+
+    <!--Search Bar-->
+    <div>
+        <form class="form-group" [class.has-warning]="hasSearchError">
+            <input type="search" [formControl]="searchControl" (focus)="onSearch()" class="form-control input-lg"  placeholder="Search employee name or id"/>
+            <label *ngIf="hasSearchError" class="control-label">{{searchError}}</label>
+        </form>
+    </div>
+
+    <!--Switch Buttons Group-->
+    <div class="clearfix">
+        <p>
+            <button type="button" (click)="onFullList()" class="btn btn-default btn-lg" [class.active]="!isSearching">
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                Default Full List
+            </button>
+            <button type="button" (click)="onSearch()" class="btn btn-default btn-lg" [class.active]="isSearching">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                Search List
+            </button>
+            &nbsp;&nbsp;(Ordered By Id Descending)
+            <button type="button" (click)="createEmployee()" class="btn btn-default btn-lg pull-right">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp; New Employee
+            </button>
+        </p>
+    </div>
+
+    <!--Full List-->
+    <div *ngIf="!isSearching">
+        <div class="row" 
+            infinite-scroll 
+            [infiniteScrollDistance]="1" 
+            [infiniteScrollUpDistance]="1.5" 
+            [infiniteScrollThrottle]="300"
+            (scrolled)="onScrollDown()">
+            
+            <employee-item *ngFor="let employee of employeesFullList; trackBy:trackByEmployees" 
+                [employee]="employee" (deleteRequest)="onEmployeeDeleting($event)">
+            </employee-item>
+            <div *ngIf="employeesFullList?.length === 0" class="center">
+                <h2>Result list is empty.</h2>
+            </div>
+        </div>
+    </div>
+
+    <!--Search List-->
+    <div *ngIf="isSearching">
+        <div class="row" 
+            infinite-scroll 
+            [infiniteScrollDistance]="1" 
+            [infiniteScrollUpDistance]="1.5" 
+            [infiniteScrollThrottle]="300"
+            (scrolled)="onScrollDown()">
+
+            <employee-item *ngFor="let employee of employeesSearchList; trackBy:trackByEmployees" 
+                [employee]="employee" (deleteRequest)="onEmployeeDeleting($event)"
+                (updateRequest)="onEmployeeUpdate($event)">
+            </employee-item>
+
+            <div *ngIf="employeesSearchList?.length === 0" class="center">
+                <h2>Result list is empty.</h2>
+            </div>
+        </div>
+    </div>
+
+    <delete-employee-modal [employee]="deletingEmp" (deleteRequest)="onCommitDelete($event)"></delete-employee-modal>
+    <new-employee-modal [onNew]="onNew" (newEmployee)="addNewEmployee($event)" ></new-employee-modal>
+</div>

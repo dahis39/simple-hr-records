@@ -1,0 +1,119 @@
+<div class="container" *ngIf="employee">
+    <h3>Selected Employee:</h3>
+    <h5>Note: This is a demo, so no delete request will be send to my server.</h5>
+
+    <!--Employee-->
+    <div class="row">
+        <employee-item [employee]="employee" (deleteRequest)="onEmployeeDeleting($event)">
+        </employee-item>
+    </div>
+
+    <!--Transfers List-->
+    <hr>
+    <h3>{{employee.firstName}} {{employee.lastName}}'s Transfers Info: 
+        <button type="button" (click)="newTransfer()" class="btn btn-default pull-right">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp; 
+            Add New Transfer Record
+        </button>
+    </h3>
+    <div class="row margin-bottom">
+        <div *ngFor="let transfer of transfers; let i = index" class="item col-md-5 col-sm-8 col-xs-10">
+            <div class="item-inner border-black">
+                <div class="form-group">
+                    <label>Department Name: </label>
+                    <inline-edit [type]="'select'" [data]="transfer.departmentName" [fieldName]="'departmentName'" [selectList]="deptNameList" (submitEvent)="onTransferValueChange($event,i)"></inline-edit>
+                </div>
+                <div class="form-group">
+                    <label>Department Number: {{transfer.dept_no}}</label>
+                </div>
+                <div class="form-group">
+                    <label>From Date:</label>
+                    <inline-edit [type]="'date'" [data]="transfer.fromDate" [fieldName]="'fromDate'" (submitEvent)="onTransferValueChange($event,i)"></inline-edit>
+                </div>
+                <div class="form-group">
+                    <label>To Date:</label>
+                    <inline-edit [type]="'date'" [data]="transfer.toDate" [fieldName]="'toDate'" (submitEvent)="onTransferValueChange($event,i)"></inline-edit>
+                </div>
+                <button (click)='onTransferDelete(i)' class="employee-button button-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+            </div>
+        </div>
+        <div *ngIf="transfers?.length === 0" class="center">
+            <h4>No transfer history.</h4>
+        </div>
+    </div>
+
+    <!--Titles List-->
+    <hr>
+    <h3>{{employee.firstName}} {{employee.lastName}}'s Job Titles History: 
+        <button type="button" (click)="newTitle()" class="btn btn-default pull-right">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp; 
+            Add New Title Record
+        </button>
+    </h3>
+    <div class="row">
+        <div *ngFor="let title of titles; let i = index" class="item col-md-4 col-sm-6 col-xs-10">
+            <div class="item-inner border-yellow">
+                <div class="form-group">
+                    <label>Title:</label>
+                    <inline-edit [type]="'text'" [data]="title.titleName" [fieldName]="'titleName'" (submitEvent)="onTitleValueChange($event,i)"></inline-edit>
+                </div>
+                <div class="form-group">
+                    <label>From Date:</label>
+                    <inline-edit [type]="'date'" [data]="title.fromDate" [fieldName]="'fromDate'" (submitEvent)="onTitleValueChange($event,i)"></inline-edit>
+                </div>
+                <div class="form-group">
+                    <label>To Date:</label>
+                    <inline-edit [type]="'date'" [data]="title.toDate" [fieldName]="'toDate'" (submitEvent)="onTitleValueChange($event,i)"></inline-edit>
+                </div>
+                <button (click)='onTitleDelete(i)' class="employee-button button-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+            </div>
+        </div>
+        <div *ngIf="titles?.length === 0" class="center">
+            <h4>No title records.</h4>
+        </div>
+    </div>
+
+    <!--Salary List-->
+    <hr>
+    <h3>{{employee.firstName}} {{employee.lastName}}'s Salaries History: 
+        <button type="button" (click)="newSalary()" class="btn btn-default pull-right">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp; 
+            Add New Salary Record
+        </button>
+        </h3>
+    <div class="row">
+        <div *ngFor="let salary of salaries; let i = index" class="item col-md-4 col-sm-6 col-xs-10">
+            <div class="item-inner border-green">
+                <div class="form-group">
+                    <label>Salary:</label>
+                    <inline-edit [type]="'number'" [data]="salary.salary" [fieldName]="'salary'" (submitEvent)="onSalaryValueChange($event,i)"></inline-edit>
+                </div>
+                <div class="form-group">
+                    <label>From Date:</label>
+                    <inline-edit [type]="'date'" [data]="salary.fromDate" [fieldName]="'fromDate'" (submitEvent)="onSalaryValueChange($event,i)"></inline-edit>
+                </div>
+                <div class="form-group">
+                    <label>To Date:</label>
+                    <inline-edit [type]="'date'" [data]="salary.toDate" [fieldName]="'toDate'" (submitEvent)="onSalaryValueChange($event,i)"></inline-edit>
+                </div>
+                <button (click)='onSalaryDelete(i)' class="employee-button button-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+            </div>
+        </div>
+        <div *ngIf="salaries?.length === 0" class="center">
+            <h4>No salary records.</h4>
+        </div>
+    </div>
+
+    <!--modals-->
+    <delete-employee-modal [employee]="deletingEmp" (deleteRequest)="onCommitDelete($event)"></delete-employee-modal>
+
+    <div *ngIf="hasError" class="fixed">
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" (click)="dismissError()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Warning!</strong> {{errMassage}}
+        </div>
+    </div>
+
+</div>

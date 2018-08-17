@@ -1,0 +1,54 @@
+<div class="container">
+
+    <h1>Department: <span class="yellow">{{deptName}}</span> number: <span class="yellow">{{deptNum}}</span> Full Employees List:</h1>
+    <p>&nbsp;&nbsp; (Ordered By Id Descending)</p>
+    
+    <!--Employees List-->
+    <div>
+        <div class="row"
+            infinite-scroll 
+            [infiniteScrollDistance]="1" 
+            [infiniteScrollUpDistance]="1.5" 
+            [infiniteScrollThrottle]="300"
+            (scrolled)="onScrollDown()" >
+            
+            <employee-item *ngFor="let employee of employees; trackBy:trackByEmployees" 
+                [employee]="employee" (deleteRequest)="onEmployeeDeleting($event)">
+            </employee-item>
+            <div *ngIf="employees?.length === 0" class="center">
+                <h2>Result list is empty.</h2>
+            </div>
+        </div>
+    </div>
+
+    <!--delete modal-->
+    <div *ngIf="isDeleting" class="row">
+        <div class="modal col-md-4 col-md-offset-4">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Really delete this employee from record?</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="name-column">
+                        <initial-image [name]="tempDeleteEmp.firstName"></initial-image>
+                        name: {{tempDeleteEmp.firstName}} {{tempDeleteEmp.lastName}}, Id: {{tempDeleteEmp.id}}
+                        <h5>
+                            Note: this is only a demo, so no delete request will be send to my server. However this employee object in the frontend will be deleted on all views/pages.
+                        </h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)="commitDelete()" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        Delete
+                    </button>
+                    <button type="button" (click)="cancelDelete()" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

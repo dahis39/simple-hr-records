@@ -1,0 +1,40 @@
+<div *ngIf="onNew" class="row overlay">
+    <div class="modal col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-12">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Employee Form</h2>
+                <h5>* All feilds are required.</h5>
+            </div>
+            <form #form="ngForm" (submit)="submit()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="firstName" [(ngModel)]="employee.firstName" class="form-control" maxlength="14" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="lastName" [(ngModel)]="employee.lastName" class="form-control" maxlength="16" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="gender" [(ngModel)]="employee.gender" class="form-control" required>
+                            <option *ngFor="let gender of genderList">{{gender}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Birth Date</label>
+                        <input type="date" name="birthDate" [(ngModel)]="employee.birthDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hire Date</label>
+                        <input type="date" name="hireDate" [(ngModel)]="employee.hireDate" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit</button>
+                    <button type="button" (click)="cancel()" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tom.mappers.SalaryMapper">
+
+    <resultMap id="salaryResultMap" type="com.tom.domain.Salary">
+        <id property="emp_no" column="emp_no"/>
+        <id property="fromDate" column="from_date"/>
+        <result property="salary" column="salary"/>
+        <result property="toDate" column="to_date"/>
+    </resultMap>
+
+    <select id="selectSalariesForEmployee" resultType="com.tom.domain.Salary" resultMap="salaryResultMap">
+        SELECT * FROM salaries WHERE emp_no = #{emp_no}  ORDER BY to_Date DESC
+    </select>
+
+    <insert id="insertSalary">
+        INSERT INTO salaries (emp_no, salary, from_date, to_date)
+        VALUES (#{emp_no}, #{salary}, #{fromDate}, #{toDate})
+    </insert>
+
+    <update id="updateSalary">
+        UPDATE salaries SET
+          salary = #{newSalary.salary},
+          from_date = #{newSalary.fromDate},
+          to_date = #{newSalary.toDate}
+        WHERE emp_no = #{oldSalary.emp_no} AND from_date = #{oldSalary.fromDate}
+    </update>
+
+    <delete id="deleteSalary">
+        DELETE FROM salaries WHERE emp_no = #{emp_no} AND from_date = #{fromDate}
+    </delete>
+
+</mapper>

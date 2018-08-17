@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tom.mappers.DepartmentMapper">
+
+    <resultMap id="departmentResult" type="com.tom.domain.Department">
+        <id property="dept_no" column="dept_no"/>
+        <id property="dept_name" column="dept_name"/>
+        <collection property="managers" javaType="ArrayList"
+                    column="dept_no" ofType="com.tom.domain.EmployeeTransfer"
+                    select="selectAllManagers"/>
+    </resultMap>
+    
+    <resultMap id="departmentTransferResult" type="com.tom.domain.DepartmentTransfer">
+        <id property="dept_no" column="dept_no"/>
+        <id property="dept_name" column="dept_name"/>
+        <collection property="managers" javaType="ArrayList"
+                    column="dept_no" ofType="com.tom.domain.Employee"
+                    select="selectAllManagers" />
+    </resultMap>
+
+    <select id="listAll" resultMap="departmentResult">
+        SELECT * FROM departments ORDER BY dept_no ASC
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="departmentTransferResult">
+        SELECT * FROM departments WHERE dept_no = #{dept_no}
+    </select>
+
+    <select id="getDeptNameById" parameterType="String" resultType="String">
+        SELECT dept_name FROM departments WHERE dept_no = #{dept_no}
+    </select>
+
+    <select id="selectAllManagers" resultType="com.tom.domain.EmployeeTransfer" resultMap="com.tom.mappers.EmployeeMapper.employeeResultMap">
+        SELECT * FROM dept_manager
+        INNER JOIN employees ON dept_manager.emp_no = employees.emp_no
+        WHERE dept_no = #{dept_no}
+    </select>
+
+    <select id="selectCurrentEmployeesByDeptNo" parameterType="map" resultType="com.tom.domain.Employee" resultMap="com.tom.mappers.EmployeeMapper.employeeResultMap">
+        SELECT * FROM (SELECT * FROM current_dept_emp WHERE dept_no = #{dept_no} ORDER BY emp_no DESC LIMIT #{offset},#{limit}) current_dept_emp
+        INNER JOIN employees ON current_dept_emp.emp_no = employees.emp_no
+        WHERE dept_no = #{dept_no}
+    </select>
+
+</mapper>

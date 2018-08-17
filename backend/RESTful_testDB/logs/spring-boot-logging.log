@@ -1,0 +1,39 @@
+2017-03-06 23:08:46.119  INFO 9076 --- [main] com.tom.service.EmployeeServiceTest      : Starting EmployeeServiceTest on tom-PC with PID 9076 (started by tom in C:\Users\tom\Desktop\RESTful_testDB)
+2017-03-06 23:08:46.119  INFO 9076 --- [main] com.tom.service.EmployeeServiceTest      : No active profile set, falling back to default profiles: default
+2017-03-06 23:08:47.846  WARN 9076 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'departmentMapper' and 'com.tom.mappers.DepartmentMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:08:47.846  WARN 9076 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'employeeMapper' and 'com.tom.mappers.EmployeeMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:08:47.846  WARN 9076 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'salaryMapper' and 'com.tom.mappers.SalaryMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:08:47.846  WARN 9076 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'titleMapper' and 'com.tom.mappers.TitleMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:08:47.846  WARN 9076 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'transferMapper' and 'com.tom.mappers.TransferMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:08:47.846  WARN 9076 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.tom.mappers]' package. Please check your configuration.
+2017-03-06 23:08:49.682  INFO 9076 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2017-03-06 23:08:53.885  INFO 9076 --- [main] com.tom.service.EmployeeServiceTest      : Started EmployeeServiceTest in 8.594 seconds (JVM running for 9.506)
+2017-03-06 23:08:54.127  INFO 9076 --- [Thread-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2017-03-06 23:11:21.546  INFO 5072 --- [main] com.tom.ResTfulTestDbApplication         : Starting ResTfulTestDbApplication on tom-PC with PID 5072 (C:\Users\tom\Desktop\RESTful_testDB\target\classes started by tom in C:\Users\tom\Desktop\RESTful_testDB)
+2017-03-06 23:11:21.554  INFO 5072 --- [main] com.tom.ResTfulTestDbApplication         : No active profile set, falling back to default profiles: default
+2017-03-06 23:11:23.460  WARN 5072 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'departmentMapper' and 'com.tom.mappers.DepartmentMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:11:23.468  WARN 5072 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'employeeMapper' and 'com.tom.mappers.EmployeeMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:11:23.476  WARN 5072 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'salaryMapper' and 'com.tom.mappers.SalaryMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:11:23.476  WARN 5072 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'titleMapper' and 'com.tom.mappers.TitleMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:11:23.476  WARN 5072 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'transferMapper' and 'com.tom.mappers.TransferMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:11:23.476  WARN 5072 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.tom.mappers]' package. Please check your configuration.
+2017-03-06 23:11:25.140  INFO 5072 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-03-06 23:11:25.148  INFO 5072 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2017-03-06 23:11:25.328  INFO 5072 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-03-06 23:11:26.583  INFO 5072 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2017-03-06 23:11:29.701  INFO 5072 --- [main] com.tom.ResTfulTestDbApplication         : Started ResTfulTestDbApplication in 8.865 seconds (JVM running for 9.365)
+2017-03-06 23:11:46.792  INFO 5072 --- [http-nio-8080-exec-9] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-03-06 23:17:46.282  INFO 1292 --- [main] com.tom.ResTfulTestDbApplication         : Starting ResTfulTestDbApplication on tom-PC with PID 1292 (C:\Users\tom\Desktop\RESTful_testDB\target\classes started by tom in C:\Users\tom\Desktop\RESTful_testDB)
+2017-03-06 23:17:46.290  INFO 1292 --- [main] com.tom.ResTfulTestDbApplication         : No active profile set, falling back to default profiles: default
+2017-03-06 23:17:48.243  WARN 1292 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'departmentMapper' and 'com.tom.mappers.DepartmentMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:17:48.250  WARN 1292 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'employeeMapper' and 'com.tom.mappers.EmployeeMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:17:48.250  WARN 1292 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'salaryMapper' and 'com.tom.mappers.SalaryMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:17:48.250  WARN 1292 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'titleMapper' and 'com.tom.mappers.TitleMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:17:48.250  WARN 1292 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'transferMapper' and 'com.tom.mappers.TransferMapper' mapperInterface. Bean already defined with the same name!
+2017-03-06 23:17:48.250  WARN 1292 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.tom.mappers]' package. Please check your configuration.
+2017-03-06 23:17:50.008  INFO 1292 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-03-06 23:17:50.016  INFO 1292 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.6
+2017-03-06 23:17:50.219  INFO 1292 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-03-06 23:17:51.555  INFO 1292 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2017-03-06 23:17:54.735  INFO 1292 --- [main] com.tom.ResTfulTestDbApplication         : Started ResTfulTestDbApplication in 9.122 seconds (JVM running for 9.631)
+2017-03-06 23:18:49.794  INFO 1292 --- [http-nio-8080-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'

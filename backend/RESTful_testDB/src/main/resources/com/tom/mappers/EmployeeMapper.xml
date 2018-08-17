@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tom.mappers.EmployeeMapper">
+
+    <resultMap id="employeeResultMap" type="com.tom.domain.Employee">
+        <id property="id" column="emp_no"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="gender" column="gender"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="hireDate" column="hire_date"/>
+        <result property="version" column="version"/>
+    </resultMap>
+
+    <!--abandoned-->
+    <resultMap id="employeeDetailResultMap" type="com.tom.domain.EmployeeDetail">
+        <id property="id" column="emp_no"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="gender" column="gender"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="hireDate" column="hire_date"/>
+        <result property="version" column="version"/>
+        <collection property="titles" javaType="ArrayList"
+                    column="emp_no" ofType="com.tom.domain.Title"
+                    select="com.tom.mappers.TitleMapper.selectTitlesForEmployee"/>
+        <collection property="salaries" javaType="ArrayList"
+                    column="emp_no" ofType="com.tom.domain.Salary"
+                    select="selectSalariesForEmployee"/>
+        <collection property="transfers" javaType="ArrayList"
+                    column="emp_no" ofType="com.tom.domain.Transfer"
+                    select="selectTransferForEmployee" />
+    </resultMap>
+
+    <resultMap id="ManagersTransferResultMap" type="com.tom.domain.EmployeeTransfer">
+        <id property="id" column="emp_no"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="gender" column="gender"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="hireDate" column="hire_date"/>
+        <result property="version" column="version"/>
+        <collection property="transfers" javaType="ArrayList"
+                    column="emp_no" ofType="com.tom.domain.Transfer"
+                    select="selectTransferForManager" />
+    </resultMap>
+    <resultMap id="EmployeesTransferResultMap" type="com.tom.domain.EmployeeTransfer">
+        <id property="id" column="emp_no"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="gender" column="gender"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="hireDate" column="hire_date"/>
+        <result property="version" column="version"/>
+        <collection property="transfers" javaType="ArrayList"
+                    column="emp_no" ofType="com.tom.domain.Transfer"
+                    select="selectTransferForEmployee" />
+    </resultMap>
+
+    <resultMap id="salaryResultMap" type="com.tom.domain.Salary">
+        <id property="fromDate" column="from_date"/>
+        <result property="salary" column="salary"/>
+        <result property="toDate" column="to_date"/>
+    </resultMap>
+
+    <resultMap id="transferResultMap" type="com.tom.domain.Transfer">
+        <result property="departmentName" column="dept_name"/>
+        <result property="fromDate" column="from_date"/>
+        <result property="toDate" column="to_date"/>
+    </resultMap>
+
+    <select id="employeeList" resultMap="employeeResultMap">
+        SELECT emp_no, birth_date, first_name, last_name, gender, hire_date, version
+        FROM employees ORDER BY emp_no DESC
+    </select>
+
+    <select id="findEmployeeById" parameterType="Integer" resultMap="employeeResultMap">
+        SELECT * FROM employees WHERE emp_no = #{id}
+    </select>
+
+    <select id="searchEmployeeByKeyword" parameterType="String" resultMap="employeeResultMap">
+        <bind name="pattern" value="'%' + _parameter.toString() + '%'" />
+        SELECT * FROM employees
+        WHERE first_name LIKE #{pattern} OR last_name LIKE #{pattern} ORDER BY `emp_no` DESC
+    </select>
+
+    <select id="searchEmployeeByNum" parameterType="String" resultMap="employeeResultMap">
+        <bind name="pattern" value="'%' + _parameter.toString() + '%'" />
+        SELECT * FROM employees
+        WHERE  emp_no LIKE #{pattern} ORDER BY `emp_no` DESC
+    </select>
+
+    <select id="searchEmployeeByTwoKeywords" parameterType="com.tom.domain.SearchKeywordsTDO"  resultType="com.tom.domain.Employee" resultMap="com.tom.mappers.EmployeeMapper.employeeResultMap">
+
+        SELECT * FROM employees
+        WHERE first_name LIKE #{firstName} AND last_name LIKE #{lastName} ORDER BY `emp_no` DESC LIMIT #{offset},#{limit}
+
+    </select>
+
+    <insert id="insertEmployee" parameterType="com.tom.domain.Employee"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="emp_no" >
+        INSERT INTO employees(birth_date, first_name, last_name, gender, hire_date)
+          VALUES(#{birthDate},#{firstName},#{lastName},#{gender},#{hireDate})
+    </insert>
+
+    <update id="updateEmployee" parameterType="com.tom.domain.Employee">
+        UPDATE employees SET
+          first_name = #{firstName},
+          last_name = #{lastName},
+          gender = #{gender},
+          birth_date = #{birthDate},
+          hire_date = #{hireDate},
+          version = version + 1
+          WHERE emp_no = #{id} AND version = #{version}
+    </update>
+
+    <delete id="deleteEmployee" parameterType="Integer">
+        DELETE FROM employees WHERE emp_no = #{id}
+    </delete>
+
+    <select id="selectSalariesForEmployee" resultType="com.tom.domain.Salary" resultMap="salaryResultMap">
+        SELECT * FROM salaries WHERE emp_no = #{emp_no}
+    </select>
+
+    <select id="selectTransferForManager" resultType="com.tom.domain.Transfer" resultMap="transferResultMap">
+        SELECT dept_manager.from_date, dept_manager.to_date, dept_manager.emp_no, dept_manager.dept_no, departments.dept_name FROM dept_manager
+        INNER JOIN departments ON departments.dept_no = dept_manager.dept_no
+        WHERE emp_no = #{emp_no}
+    </select>
+
+    <select id="selectTransferForEmployee" resultType="com.tom.domain.Transfer" resultMap="transferResultMap">
+        SELECT dept_emp.from_date, dept_emp.to_date, dept_emp.emp_no, dept_emp.dept_no, departments.dept_name FROM dept_emp
+        INNER JOIN departments ON departments.dept_no = dept_emp.dept_no
+        WHERE emp_no = #{emp_no}
+    </select>
+
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tom.mappers.TransferMapper">
+
+    <resultMap id="transferResultMap" type="com.tom.domain.Transfer">
+        <id property="emp_no" column="emp_no"/>
+        <id property="dept_no" column="dept_no"/>
+        <result property="fromDate" column="from_date"/>
+        <result property="toDate" column="to_date"/>
+    </resultMap>
+
+    <select id="selectTransfersForEmployee" resultType="com.tom.domain.Transfer" resultMap="transferResultMap">
+        SELECT * FROM dept_emp WHERE emp_no = #{emp_no}
+        UNION
+        SELECT * FROM dept_manager WHERE emp_no = #{emp_no}
+    </select>
+
+    <insert id="insertEmpTransfer">
+        INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date)
+        VALUES (#{emp_no}, #{dept_no}, #{fromDate}, #{toDate})
+    </insert>
+
+    <insert id="insertMngTransfer">
+        INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date)
+        VALUES (#{emp_no}, #{dept_no}, #{fromDate}, #{toDate})
+    </insert>
+
+    <update id="updateEmpTransfer">
+        UPDATE dept_emp SET
+        from_date = #{newTransfer.fromDate},
+        to_date = #{newTransfer.toDate},
+        dept_no = #{newTransfer.dept_no}
+        WHERE emp_no = #{oldTransfer.emp_no} AND dept_no = #{oldTransfer.dept_no}
+    </update>
+
+    <update id="updateMngTransfer">
+        UPDATE dept_manager SET
+        from_date = #{fromDate},
+        to_date = #{toDate},
+        dept_no = #{dept_no}
+        WHERE emp_no = #{emp_no}
+    </update>
+
+    <delete id="deleteEmpTransfer">
+        DELETE FROM dept_emp WHERE emp_no = #{emp_no} AND dept_no = #{dept_no}
+    </delete>
+
+    <delete id="deleteMngTransfer">
+        DELETE FROM dept_manager WHERE emp_no = #{emp_no} AND dept_no = #{dept_no}
+    </delete>
+</mapper>

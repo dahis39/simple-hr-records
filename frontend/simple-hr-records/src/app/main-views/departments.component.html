@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Departments List</h1>
+
+    <div *ngFor="let department of departments; let i = index">
+        <h3>Department: <span class="yellow">{{department.dept_name}}</span>, number: <span class="yellow">{{department.dept_no}}</span>
+            <button type="button" (click)="navigateToDeptEmpsList(department.dept_no)" class="pull-right btn btn-default btn-lg">   
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                List all employees under <span class="yellow">{{department.dept_name}}</span> Dept.
+            </button>
+        </h3>
+        <div class="row">
+            <h4>&nbsp;&nbsp; Managers:</h4>
+            <employee-item *ngFor="let employee of department.managers" 
+                [employee]="employee" 
+                (deleteRequest)="onEmployeeDeleting($event,i)">
+            </employee-item>
+            <div *ngIf="department.managers?.length === 0" class="center">
+                <h4>List is empty.</h4>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <delete-employee-modal [employee]="deletingEmp" (deleteRequest)="onCommitDelete($event)"></delete-employee-modal>
+</div>

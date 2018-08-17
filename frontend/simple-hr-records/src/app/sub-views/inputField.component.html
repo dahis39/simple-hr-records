@@ -1,0 +1,32 @@
+<label class="employee-second-column" *ngIf="!isEdit">{{data}}</label>
+<span class="employee-third-column" *ngIf="!isEdit" (click)="onEditSwitch()"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+
+<span *ngIf="isEdit" [ngSwitch]="type"  class="form-inline">
+
+    <!-- Type: text -->
+    <div class="form-group">
+        <label for="name-input" class="sr-only">Name</label>
+        <input *ngSwitchCase="'text'" [(ngModel)]="model" name="model" (keyup.enter)="onSubmit()" class="form-control" id="name-input" maxlength="31" required/>
+    </div>
+
+    <!-- Type: select -->
+    <span *ngSwitchCase="'select'">
+        <select  [(ngModel)]="model" class="form-control">
+            <option *ngFor="let item of selectList" [ngValue]="item" [selected]="data">{{item}}</option>
+        </select>
+    </span>
+
+    <!--Type: Date-->
+    <input *ngSwitchCase="'date'" [(ngModel)]="model" type="date"/>
+
+    <!--Type: Number-->
+    <input *ngSwitchCase="'number'" [(ngModel)]="model" type="number" min="0" max="99999999"/>
+
+</span>
+
+<button type="submit" *ngIf="isEdit" (click)="onSubmit()"><i class="fa fa-check" aria-hidden="true"></i></button>
+<button type="reset" *ngIf="isEdit" (click)="onReset()"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+<div *ngIf="!isValidated" class="errors-div">
+    <h5 *ngFor="let error of errors;" class="error">{{error}}</h5>
+</div>

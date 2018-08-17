@@ -1,0 +1,32 @@
+<div *ngIf="employee" class="col-md-4 col-sm-6 col-xs-10 employee-container">
+    <div class="employee-container-inner" [ngClass]="{'red-bg': employee.gender === 'F', 'blue-bg': employee.gender === 'M'}">
+        <div>
+            <div class="name-column">
+                <initial-image [name]="fullname"></initial-image>
+                <inline-edit [type]="'text'" [data]="fullname" [fieldName]="'name'" (submitEvent)="onValueChange($event)"></inline-edit>
+            </div>
+            <div>
+                <div class="tablelike-column">
+                    <span class="employee-first-column"><i class="fa fa-id-card-o" aria-hidden="true"></i> ID:</span>
+                    <span class="employee-second-column"> {{employee.id}} </span>
+                </div>
+                <div class="tablelike-column">
+                    <span class="employee-first-column"><i class="fa fa-venus-mars" aria-hidden="true"></i> Gender:</span>
+                    <inline-edit [type]="'select'" [data]="employee.gender" [fieldName]="'gender'" [selectList]="genderList" (submitEvent)="onValueChange($event)"></inline-edit>
+                </div>
+                <div class="tablelike-column">
+                    <span class="employee-first-column"><i class="fa fa-calendar-o" aria-hidden="true"></i> Hire Date:</span>
+                    <inline-edit [type]="'date'" [data]="employee.hireDate" [fieldName]="'hireDate'" (submitEvent)="onValueChange($event)"></inline-edit>
+                </div>
+                <div class="tablelike-column">
+                    <span class="employee-first-column"><i class="fa fa-calendar-o" aria-hidden="true"></i> Birth Date:</span>
+                    <inline-edit [type]="'date'" [data]="employee.birthDate" [fieldName]="'birthDate'" (submitEvent)="onValueChange($event)"></inline-edit>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix employee-button-div">
+            <button (click)='onDelete()' class="employee-button button-delete"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+            <button (click)='openEmployeeDetail()' class="employee-button pull-right button-detail">More Details</button>
+        </div>
+    </div>
+</div>

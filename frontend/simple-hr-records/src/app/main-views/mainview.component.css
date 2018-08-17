@@ -1,0 +1,24 @@
+h1, h2, h3 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+laber {
+  font-size: 1.8em;
+}
+
+.center {
+  text-align: center;
+  margin: 100px auto;
+}
+
+.name-column {
+  font-family: 'Roboto';
+  font-size: 1.4em;
+  margin: auto;
+}
+
+.modal {
+  display: block; 
+  margin-top: 300px;
+}

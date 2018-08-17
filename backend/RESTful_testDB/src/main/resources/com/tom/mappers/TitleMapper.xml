@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tom.mappers.TitleMapper">
+
+    <resultMap id="titleResultMap" type="com.tom.domain.Title">
+        <id property="emp_no" column="emp_no"/>
+        <id property="titleName" column="title"/>
+        <id property="fromDate" column="from_date"/>
+        <result property="toDate" column="to_date"/>
+    </resultMap>
+
+    <select id="selectTitlesForEmployee" resultType="com.tom.domain.Title" resultMap="titleResultMap">
+        SELECT * FROM titles WHERE emp_no = #{emp_no} ORDER BY to_Date DESC
+    </select>
+
+    <insert id="insertTile">
+        INSERT INTO titles (emp_no, title, from_date, to_date)
+        VALUES (#{emp_no}, #{titleName}, #{fromDate}, #{toDate})
+    </insert>
+
+    <update id="updateTile">
+        UPDATE titles SET
+          title = #{newTitle.titleName},
+          from_date = #{newTitle.fromDate},
+          to_date = #{newTitle.toDate}
+          WHERE emp_no = #{oldTitle.emp_no} AND title = #{oldTitle.titleName} AND from_date = #{oldTitle.fromDate}
+    </update>
+
+    <delete id="deleteTile">
+        DELETE FROM titles WHERE emp_no = #{emp_no} AND title = #{titleName} AND from_date = #{fromDate}
+    </delete>
+
+</mapper>
