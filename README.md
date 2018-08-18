@@ -2,7 +2,9 @@
 ---
 Human Resource dashboard app for learning Angualr 2. It has Trello style quick edit for majority of data fields.
 
-Data and schema taken from a SQL dump on Github, backend RESTful api powered by Spring Boot, MyBatis as ORM.
+Data and schema taken from a [SQL dump](https://github.com/datacharmer/test_db) on Github, backend RESTful api powered by Spring Boot, MyBatis as ORM.
+
+## Live Site: [Simple HR Record](http://www.saturnringstation.com/simple-hr-records)
 
 ### Features
 ---
